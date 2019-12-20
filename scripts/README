@@ -1,0 +1,139 @@
+#
+# $Id :$
+#
+
+1. The i6Gesture database (i6G)
+-------------------------------
+
+The i6Gesture database was recorded in the course of the diploma thesis
+work 'Appearance-Based Gesture Recognition' of Philippe Dreuw at the
+Lehrstuhl fuer Informatik 6 of the RWTH Aachen University.
+
+
+The new database of fingerspelling letters of German Sign Language
+(Deutsche Gebärdensprache, DGS) contains 35 gestures with video
+sequences for the signs A to Z and SCH, the German umlauts Ä, Ö, Ü, and
+for the numbers 1 to 5. Five of the gestures contain inherent motion (J,
+Z, Ä, Ö and Ü).
+
+The recording was done under non-uniform daylight lighting conditions,
+the back- ground and the camera viewpoints are not constant, and the
+persons had no restrictions on the clothing while gesturing. The
+database consists of 1400 image sequences that contain gestures of 20
+different persons. Each person had to sign each gesture twice on two
+different days. The gestures were recorded by two different cameras, one
+webcam and one camcorder, from two different points of view.
+
+The webcam recorded the sequences with a resolution of 320x240 at 25
+frames per second, and the camcorder with a resolution of 352x288 at 25
+frames per second. The persons were not trained to perform the signs,
+therefrom the gestures may differ from the standard. For recording the
+gestures we programmed a shell script which gave us the possibility
+of recording and converting gestures for as many persons as we wanted
+in a flexible and easy way. All videos were recorded in MPEG-4 DivX
+format using the freely available software MPlayer. The script offers
+possibilities to easily integrate new recording devices or changing the
+record resolution and frame rate.
+
+Also we programmed another shell script to convert the recorded videos
+into single image files. For each person, session, and camera a sequence
+file was generated which contains all images belonging to this sequence.
+We chose the PNG image format with high compression factor but one may
+change this to any other value. These two scripts are also available
+online.
+
+More information is available online at
+http://www-i6.informatik.rwth-aachen.de/~dreuw/database.html
+
+Our database is freely available. Use it as you wish, but please cite us
+if you do. You should cite the following paper:
+
+Philippe Dreuw, Daniel Keysers, Thomas Deselaers and H. Ney Gesture
+Recognition Using Image Comparison Methods. In GW2005, 6th International
+Workshop on Gesture in Human-Computer Interaction and Simulation.
+Vannes, France. May 2005. Accepted for Publication.
+
+
+
+
+
+2. How to use the scripts to convert the video files into image sequences?
+--------------------------------------------------------------------------
+
+After downloading the 'video' directory from the FTP server to your
+working directory you have to adapt the filepath assignments in the
+'registerRecordedGesture.sh' shell script to your needs.
+
+E.g if you download the 'video' folder to '/home/yourname/I6-Gesture',
+then you should adpat the filepath assignments as follows:
+
+BASE_DIR="/home/yourname/I6-Gesture";    # base dir, prefix which will be used for all other dirs
+EXAMPLE_DIR="${BASE_DIR}/examples"       # a path where you can store some example videos and images
+DATA_DIR="${BASE_DIR}/data";             # all videos and images will be stored here
+DATA_VIDEO_DIR="${DATA_DIR}/video";      # all videos will be stored here
+DATA_IMAGE_DIR="${DATA_DIR}/image";      # all images, converted from the videos using the scripts, will be stored here
+TEMP_DIR="/tmp";                         # temporary directory to convert the videos into image sequences
+
+To convert then the video files into PNG image sequences, you have to
+call 'registerRecordedGesturesAll.sh <session-id>', e.g. you have to
+call 'registerRecordedGesturesAll.sh 1' and 'registerRecordedGesturesAll.sh 2' 
+in order to convert both recording sessions into PNG files. This will
+convert all 35 gestures of all 20 persons. If you encounter problems
+when converting you might want use the other converting scripts like
+'registerRecordedGesture.sh <PERSON_ID> <GESTURE_ID> <SESSION_ID>'.
+
+The filenames are organized as follows:
+e.g. /u/image/I6-Gesture/data/image/2/12_2_1_cam1.seq
+-> gesture 2 (='B'), person id=12, session 1, camera 1 (=webcam)
+e.g. /u/image/I6-Gesture/data/image/4/15_4_2_cam2.seq
+-> gesture 4 (='D'), person id=15, session 2, camera 2 (=digicam)
+
+The text file i6_data_P20_BOTH.txt was used to make person
+independent experiments using leaving one out method. The file
+i6_data_P20_SESSION_1.txt contains the training data (first session)
+and the file i6_data_P20_SESSION_2.txt contains the test data
+(second session) to make a person dependent experiment, as reported
+in the paper. Of course you have to change these files according
+to your needs, i.e. replace '/u/image/I6-Gesture' in the files to
+'/home/yourname/I6-Gesture' using a search-and-replace tool like 'sed'.
+The file is structured as follows:
+
+<BASE_DIR> <NOF_GESTURES (=N)>
+{
+  <GESTURE_NAME_1> <NOF_PERSONS (=P)>
+  <SEQUENCE_FILE_1>
+  ...
+  <SEQUENCE_FILE_P>
+}
+...
+{
+  <GESTURE_NAME_N> <NOF_PERSONS>
+  <SEQUENCE_FILE_1>
+  ...
+  <SEQUENCE_FILE_P>
+}
+
+
+
+
+
+3. How to record new videos using the shell scripts?
+----------------------------------------------------
+
+The recording scripts will work on any video4linux device (e.g.
+/dev/video) and you should adapt the scripts to your needs. We used a
+Philips webcam _and_ an ordinary digi cam.
+
+
+
+
+
+
+Please contact me if there are any further questions.  
+
+-----------------------------------------------------------------------------
+Dipl.-Inform. Philippe Dreuw                  dreuw@informatik.rwth-aachen.de
+Lehrstuhl fuer Informatik VI                        Phone: +49 (241) 80-21613
+RWTH Aachen University                                Fax: +49 (241) 80-22219
+D-52056 Aachen, Germany                                             Room 6130
+----------------------------> http://www-i6.informatik.rwth-aachen.de/~dreuw/
